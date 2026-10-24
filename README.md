@@ -12,7 +12,7 @@ O ambiente simula atividades comuns de um analista SOC N1, incluindo identifica�
 
 - Implementar e configurar o Wazuh Manager.
 - Integrar um endpoint Windows à infraestrutura de monitoramento.
-- Monitorar eventos de segurança dos sistemas Windows e Linux.
+- Monitorar eventos de segurança do Windows.
 - Gerar eventos controlados para testar mecanismos de detecção.
 - Investigar alertas utilizando o Wazuh.
 - Documentar ocorrências por meio de relatórios estruturados de investigação.
@@ -30,6 +30,8 @@ O ambiente simula atividades comuns de um analista SOC N1, incluindo identifica�
 | Linux CLI | Administração do Wazuh e investigação de alertas |
 
 ## 4. Arquitetura do Laboratório
+
+A topologia, os componentes e o fluxo de monitoramento estão detalhados em [Arquitetura do Laboratório](architecture/README.md).
 
 ```text
 Windows 11 (Host)
@@ -96,7 +98,7 @@ O endpoint Windows foi registrado com sucesso e apresentou o status `Active`.
 
 ## 6. Cenários de Monitoramento
 
-O laboratório contempla simulações controladas para exercitar procedimentos básicos de investigação de segurança.
+O laboratório contempla uma simulação controlada para exercitar procedimentos básicos de investigação de segurança no Windows.
 
 ### Cenário 1 — Falha de Autenticação no Windows
 
@@ -106,31 +108,17 @@ O laboratório contempla simulações controladas para exercitar procedimentos b
 
 **Objetivo:** Identificar e analisar tentativas malsucedidas de autenticação no Windows.
 
-Etapas previstas:
+Etapas realizadas:
 
 1. Gerar um evento controlado de falha de autenticação.
-2. Verificar o registro no Visualizador de Eventos do Windows.
-3. Identificar o alerta correspondente no Wazuh, caso seja gerado.
+2. Verificar o registro no Windows Security Event Log utilizando o PowerShell.
+3. Identificar o alerta correspondente no Wazuh para o agente 001, associado à regra 60122, com severidade 5.
 4. Analisar informações como horário, usuário, tipo de logon e motivo da falha.
 5. Documentar as evidências e a classificação da ocorrência.
 
-**Status:** Aguardando conclusão da investigação.
+**Status:** Encerrado — teste controlado autorizado.
 
-### Cenário 2 — Monitoramento de Autenticação no Linux
-
-**Fonte:** Logs de autenticação do Rocky Linux
-
-**Objetivo:** Monitorar e investigar falhas de autenticação no ambiente Linux.
-
-Etapas previstas:
-
-1. Gerar um evento controlado de autenticação malsucedida.
-2. Localizar o registro nos logs do sistema.
-3. Verificar se o Wazuh identificou e classificou o evento.
-4. Analisar os detalhes e possíveis implicações de segurança.
-5. Documentar a investigação.
-
-**Status:** Aguardando implementação.
+O relatório [SOC-001 — Investigação de Falha de Autenticação no Windows](investigations/SOC-001-windows-failed-logon.md) documenta a correlação entre o Event ID 4625 e o alerta do Wazuh, com as evidências coletadas.
 
 ## 7. Análise de Alertas
 
@@ -169,7 +157,6 @@ Cada investigação será registrada individualmente na pasta `investigations/`.
 - [x] Configuração da comunicação de rede
 - [x] Instalação do Wazuh Agent no Windows
 - [x] Validação da conectividade entre agente e servidor
-- [ ] Investigação de eventos de autenticação no Windows
-- [ ] Investigação de eventos de autenticação no Linux
-- [ ] Documentação das evidências coletadas
-- [ ] Finalização da documentação
+- [x] Investigação de eventos de autenticação no Windows
+- [x] Documentação das evidências coletadas
+- [x] Finalização da documentação
